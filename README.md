@@ -15,11 +15,13 @@ composer install
 cp .env.example .env
 php artisan key:generate
 touch database/database.sqlite      # the SQLite database file is created here
-php artisan migrate --seed          # seeds 5 categories and 24 articles (about three quarters published)
+php artisan migrate --seed          # seeds 5 categories and 24 articles (18 published, 6 drafts)
 php artisan serve
 ```
 
 Then open http://127.0.0.1:8000.
+
+To start over with fresh sample data at any time, run `php artisan migrate:fresh --seed`.
 
 ### Optional: set the site name
 
@@ -37,6 +39,8 @@ Restart `php artisan serve` after editing `.env` so the new value is picked up.
 php artisan test
 ./vendor/bin/pint
 ```
+
+The tests run against an in-memory SQLite database, so they never touch the data in `database/database.sqlite`.
 
 ## Routes
 
@@ -71,7 +75,7 @@ php artisan test
 - Eager loading with `with('category')` avoids N+1 queries; a query-count test verifies it.
 - A `published()` query scope is shared by the API and the web pages.
 - Route binding uses the unique `permalink` instead of the numeric id.
-- An API Resource class controls the JSON shape.
+- `ArticleResource` and `CategoryResource` control the JSON shape.
 - Foreign key from articles to categories with cascade delete, plus an index on `published_at`.
 - Extra fields: `author` and `status`.
 - Factories provide `draft` and `published` states.
