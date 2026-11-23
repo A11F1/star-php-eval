@@ -21,10 +21,7 @@ class ArticleResource extends JsonResource
             'permalink' => $this->permalink,
             'author' => $this->author,
             'published_at' => $this->published_at?->toIso8601String(),
-            'category' => $this->whenLoaded('category', fn () => [
-                'id' => $this->category->id,
-                'name' => $this->category->name,
-            ]),
+            'category' => CategoryResource::make($this->whenLoaded('category')),
         ];
     }
 }
