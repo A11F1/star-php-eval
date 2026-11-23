@@ -16,6 +16,7 @@ class ArticleController extends Controller
             ->with('category')
             ->published()
             ->latest('published_at')
+            ->latest('id') // stable order when timestamps tie, so pages never overlap
             ->paginate(10);
 
         return ArticleResource::collection($articles);
