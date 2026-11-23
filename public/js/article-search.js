@@ -5,9 +5,13 @@
  * whether its data-title contains the query. #no-results is shown only
  * when a query is entered and nothing matches.
  */
-const input = document.getElementById('article-search');
+(() => {
+    const input = document.getElementById('article-search');
 
-if (input) {
+    if (!input) {
+        return;
+    }
+
     const items = document.querySelectorAll('.article-item');
     const noResults = document.getElementById('no-results');
 
@@ -27,4 +31,4 @@ if (input) {
     };
 
     input.addEventListener('input', filter);
-}
+})();
