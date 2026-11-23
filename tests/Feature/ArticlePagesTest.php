@@ -15,6 +15,8 @@ it('lists published articles but not drafts', function () {
 });
 
 it('renders the search input and no-results element', function () {
+    Article::factory()->for(Category::factory())->create();
+
     $this->get(route('articles.index'))
         ->assertOk()
         ->assertSee('id="article-search"', false)
