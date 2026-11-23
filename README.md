@@ -21,6 +21,16 @@ php artisan serve
 
 Then open http://127.0.0.1:8000.
 
+### Optional: set the site name
+
+The navbar and page titles read `APP_NAME` from `.env` (the default is "Laravel"). To see the portal name in the UI, change it before starting the server:
+
+```dotenv
+APP_NAME="Star News"
+```
+
+Restart `php artisan serve` after editing `.env` so the new value is picked up.
+
 ## Tests and formatting
 
 ```sh
