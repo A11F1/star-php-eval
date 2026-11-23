@@ -13,7 +13,7 @@
             <input type="search" id="article-search" class="form-control" placeholder="Search articles by title" autocomplete="off">
         </div>
 
-        <div id="article-list" class="row row-cols-1 g-4">
+        <div id="article-list" class="row row-cols-1 row-cols-md-2 g-4">
             @foreach ($articles as $article)
                 <div class="col article-item" data-title="{{ $article->title }}">
                     <div class="card h-100 shadow-sm">
