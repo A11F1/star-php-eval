@@ -2,24 +2,25 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $categories = collect(['Politics', 'Business', 'Sports', 'Technology', 'Entertainment'])
+            ->map(fn (string $name) => Category::create(['name' => $name]));
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach (range(1, 24) as $i) {
+            $article = Article::factory()->for($categories[$i % $categories->count()]);
+
+            // Every fourth article stays a draft (6 of 24).
+            ($i % 4 === 0 ? $article->draft() : $article->published())->create();
+        }
     }
 }
