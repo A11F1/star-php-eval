@@ -13,8 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = collect(['Politics', 'Business', 'Sports', 'Technology', 'Entertainment'])
-            ->map(fn (string $name) => Category::create(['name' => $name]));
+        $categories = Category::factory()
+            ->count(5)
+            ->sequence(...collect(['Politics', 'Business', 'Sports', 'Technology', 'Entertainment'])
+                ->map(fn (string $name) => ['name' => $name])
+                ->all())
+            ->create();
 
         foreach (range(1, 24) as $i) {
             $article = Article::factory()->for($categories[$i % $categories->count()]);

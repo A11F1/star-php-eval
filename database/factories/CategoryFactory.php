@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<Category>
@@ -18,10 +19,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->randomElement([
-                'Politics', 'Business', 'Sports', 'Technology', 'Entertainment',
-                'World', 'Health', 'Science', 'Travel', 'Education',
-            ]),
+            'name' => Str::title(fake()->unique()->words(2, true)),
         ];
     }
 }
